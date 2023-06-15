@@ -23,7 +23,7 @@ app = Dash(__name__)
 
 app.layout = html.Div(
     [
-        dcc.Location(id='url'),
+        dcc.Location(id="url"),
         html.H1(children="Returns", style={"textAlign": "center"}),
         # dcc.Dropdown(df.country.unique(), "Canada", id="dropdown-selection"),
         dcc.Graph(id="graph-content"),
@@ -31,7 +31,7 @@ app.layout = html.Div(
 )
 
 
-@callback(Output("graph-content", "figure"), Input("url", 'pathname'))
+@callback(Output("graph-content", "figure"), Input("url", "pathname"))
 def show_graph(pathname):
     connection = psycopg.connect(db_url)
     with connection.cursor() as cur:
@@ -42,9 +42,7 @@ def show_graph(pathname):
 
     account_returns = defaultdict(list)
     for record in results:
-        account_returns[record[0]].append(
-            (record[1], record[2])
-        )
+        account_returns[record[0]].append((record[1], record[2]))
     dfs = []
     for account, closing_values in account_returns.items():
         returns = [
@@ -66,8 +64,9 @@ def show_graph(pathname):
     fig.update_xaxes(
         rangebreaks=[
             dict(bounds=["sat", "mon"]),  # hide weekends
-        ]
+        ],
     )
+    fig.update_layout(xaxis_title="Date", yaxis_title="Total Returns (%)", height=1000)
     return fig
 
 
