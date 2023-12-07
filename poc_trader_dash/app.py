@@ -11,9 +11,9 @@ from plotly import express as px
 
 db_url = environ.get("DATABASE_URL")
 
-tradier_account = environ.get("TRADIER_LIVE_ACCOUNT")
-tradier_token = environ.get("TRADIER_LIVE_API_BEARER")
-tradier_url = environ.get("TRADIER_LIVE_URL")
+tradier_account = environ.get("TRADIER_ACCOUNT")
+tradier_token = environ.get("TRADIER__API_BEARER")
+tradier_url = environ.get("TRADIER_URL")
 
 
 def percent_change(start, finish):
