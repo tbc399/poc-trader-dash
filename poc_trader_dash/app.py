@@ -1,4 +1,5 @@
 import asyncio
+from dateutil import parser
 from dash import Dash, html, dcc, callback, Output, Input
 from collections import defaultdict
 from os import environ
@@ -43,7 +44,8 @@ def show_graph(pathname):
 
     account_returns = defaultdict(list)
     for record in results:
-        account_returns[record[0]].append((record[1], record[2]))
+        if record[1] >= parser.parse('2023-06-20').date():
+            account_returns[record[0]].append((record[1], record[2]))
     dfs = []
     for account, closing_values in account_returns.items():
         returns = [
